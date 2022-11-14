@@ -1,1 +1,4 @@
-$green: green;
+:root {
+    --green: green;
+}
+$green: var(--green);
