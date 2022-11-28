@@ -2,12 +2,18 @@
 @use '../../scss/variables';
 
 .MainNav {
+
+	:global {
+		a.active {
+			background-color: #00ad00;
+		}
+	}
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	position: sticky;
 	height: 10vh;
-	z-index: 50000;
+	z-index: 5;
 	background-color: var(--green);
 
 	a {
@@ -16,7 +22,10 @@
 	}
 
 	&__Logo {
-		padding: 0 50px;
+		padding: 0 30px;
+		@include mixins.mq('from', 992) {
+			padding: 0 50px;
+		}
 	}
 
 	> ul {
@@ -24,9 +33,11 @@
 		display: flex;
 		justify-content: flex-end;
 		list-style-type: none;
-		gap: 15px;
 		padding-right: 30px;
-
+		
+		@include mixins.mq('from', 992) {
+			gap: 15px;
+		}
 		@include mixins.mq('to', 992) {
 			position: absolute;
 			top: 10vh;
@@ -49,6 +60,12 @@
 			height: auto;
 		}
 
+		li {
+			@include mixins.mq('to', 992) {
+				width: 100%;
+			}
+		}
+
 	
 
 		a {
@@ -67,6 +84,8 @@
 				transition: transform 0.3s ease;
 			}
 
+			
+
 			&:hover {
 				background-color: #00ad00;
 				&::before {
@@ -84,24 +103,27 @@
 	}
 
 	&__Dropdown {
+		position: relative;
 		div {
-			position: absolute;
-			top: 93px;
 			display: flex;
 			flex-direction: column;
 			background-color: green;
-			top: 100%;
+			z-index: 15;
+			width: 100%;
 			text-align: center;
-			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-			visibility: hidden;
-			transform: translateX(-30%);
-			min-width: 250px;
-			@include mixins.mq(to, '992') {
+			
+			
+			@include mixins.mq(from, '992') {
+				position: absolute;
+				box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+				visibility: hidden;
+				transform: translateX(-30%);
+				min-width: 250px;
 				width: 100%;
-				position: relative;
+				top: 56px;
+			}
+			@include mixins.mq(to, '992') {	
 				transform: translateX(0%);
-				display: none;
-				top: 0;
 			}
 		}
 
@@ -126,6 +148,7 @@
 			width: 50px;
 			background-color: transparent;
 			border: 0;
+			margin-right: 20px;
 		}
 		span {
 			display: inline-block;
@@ -156,8 +179,6 @@
 	li {
 		@include mixins.mq('to', 992) {
 			opacity: 0;
-			width: 100%;
-
 			animation: navLinksFade 0.5s forwards var(--time);
 		}
 	}

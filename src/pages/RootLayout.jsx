@@ -6,7 +6,7 @@ import Footer from '../components/Layout/Footer'
 function RootLayout() {
   return (
     <>
-      <MainNav />
+      <MainNav/>
       <main>
         <Outlet />
       </main>
