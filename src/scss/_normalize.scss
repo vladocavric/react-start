@@ -365,5 +365,10 @@ body {
 }
 
 html {
-	overflow: hidden;
+	overflow-x: hidden;
+}
+
+
+img {
+   max-width: 100%;
 }
