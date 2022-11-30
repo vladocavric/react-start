@@ -1,0 +1,26 @@
+.DNDTwoColumn {
+    display: flex;
+    justify-content: center;
+    // align-self: flex-start;
+    align-items: flex-start;
+    gap: 50px;
+    
+}
+
+.Draggable {
+    background-color: rgb(211, 211, 211);
+    padding: 15px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1
+}
+
+.DropTargetDiv {
+    background-color: rgb(211, 211, 211);
+    max-width: 400px;
+    // min-width: 300px;
+    height: 350px;
+    flex: 1
+}

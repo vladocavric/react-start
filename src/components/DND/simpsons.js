@@ -2,7 +2,8 @@ const theSimpsonsCharacters = [
 	{
 		fName: 'Homer',
 		lName: 'Simpson',
-img: 'https://iheartcraftythings.com/wp-content/uploads/2021/07/How-to-Draw-The-Simpsons-%E2%80%93-Featured-Image.jpg'	},
+		img: 'https://iheartcraftythings.com/wp-content/uploads/2021/07/How-to-Draw-The-Simpsons-%E2%80%93-Featured-Image.jpg',
+	},
 	{
 		fName: 'Marge',
 		lName: 'Simpson',
@@ -26,8 +27,8 @@ img: 'https://iheartcraftythings.com/wp-content/uploads/2021/07/How-to-Draw-The-
 	{
 		fName: 'Apu',
 		lName: 'Nahasapeemapetilon',
-img: 'https://assets.stickpng.com/images/5eb95bc017f3c600044a2908.png'
-},
+		img: 'https://assets.stickpng.com/images/5eb95bc017f3c600044a2908.png',
+	},
 	{
 		fName: 'Mr. Burns',
 		lName: '',
