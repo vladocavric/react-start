@@ -1,11 +1,11 @@
 @use '../../scss/mixins';
-@use '../../scss/variables';
+@use '../../scss/variables/colors';
 
 .MainNav {
 
 	:global {
 		a.active {
-			background-color: #00ad00;
+			background-color: colors.$primary-lighten;
 		}
 	}
 	display: flex;
@@ -14,7 +14,7 @@
 	position: sticky;
 	height: 10vh;
 	z-index: 5;
-	background-color: var(--green);
+	background-color: var(--primary);
 
 	a {
 		color: white;
@@ -44,7 +44,7 @@
 			right: 0;
 			height: auto;
 			margin: 0;
-			background-color: var(--green);
+			background-color: var(--primary);
 			display: flex;
 			flex-direction: column;
 			align-items: center;

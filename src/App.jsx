@@ -8,6 +8,10 @@ import DNDBasicPage from './pages/DND/DNDBasicPage';
 import DNDTwoColumnPage from './pages/DND/DNDTwoColumnPage';
 import DNDKanbanPage from './pages/DND/DNDKanbanPage';
 
+import CreateTaskPage from './pages/Tasks/CreateTaskPage';
+
+import PageNotFound from './pages/PageNotFound';
+
 import UIPage from './pages/UI/UIPage';
 import ButtonsPage from './pages/UI/ButtonsPage'
 
@@ -45,8 +49,20 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: 'tasks',
+        children: [
+          // {
+          //   index: true,
+          //   element: <CreateTaskPage />
+          // },
+          {
+            path: 'new',
+            element: <CreateTaskPage />
+          },
+        ]
+      },
+      {
         path: 'ui',
-        
         children: [
           {
             index: true,
@@ -58,6 +74,10 @@ const router = createBrowserRouter([
           }
         ]
       },
+      {
+        path: '*',
+        element: <PageNotFound />
+      }
     ],
   },
   

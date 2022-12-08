@@ -1,4 +1,4 @@
-// @use '../../scss/variables';
+// @use '../../scss/variables/colors';
 
 .DNDTabs {
 	margin: 15px;
@@ -19,7 +19,7 @@
 				padding: 15px;
 				color: black;
 				border-radius: 5px;
-				transition: var(--globalTrans);
+				transition: all 0.3s ease;
 				&:hover {
 					background-color: darken(beige, 20%);
 				}
