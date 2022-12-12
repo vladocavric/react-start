@@ -3,7 +3,7 @@ import styles from './Footer.module.scss'
 
 const Footer = () => {
   return (
-    <footer className={styles.Footer}>Footer</footer>
+    <footer className={styles.Footer}>Copyright Dovla &#169; {new Date().getFullYear()}</footer>
   )
 }
 

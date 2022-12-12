@@ -1,0 +1,46 @@
+.Input {
+    position: relative;
+    input {
+        width: 100%;
+        padding: 11px 5px 3px;
+        border: 0;
+        border-bottom: 2px solid var(--gray-first);
+        outline: 0;
+        transition: all 0.3s;
+        font-size: 25px;
+        background-color: rgb(249, 250, 251);
+        height: 50px;
+        margin-bottom: 3px;
+
+        &:focus {
+            border-bottom: 2px solid var(--primary);
+
+            &+label {
+                color: var(--primary);
+                top: -5px;
+                scale: 0.6;
+            }
+        }
+
+        &:not([value=""]) {
+            &+label {
+            top: -5px;
+            scale: 0.6;
+            }
+        }
+    }
+
+    label {
+        position: absolute;
+        font-size: 25px;
+        left: 5px;
+        top: 10px;
+        color: var(--gray-first);
+        transition: all 0.3s;
+    }
+}
+
+.InputError {
+    color: red;
+    font-size: 13px;
+}

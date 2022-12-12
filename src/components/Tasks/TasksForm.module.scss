@@ -1,0 +1,41 @@
+.TasksForm {
+	padding: 30px;
+	max-width: 900px;
+	margin: auto;
+
+	h1 {
+		text-align: center;
+		color: var(--primary);
+		margin-bottom: 60px;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 35px
+	}
+	:global {
+		.ck-content {
+			min-height: 350px;
+		}
+
+			[id^="react-select-"][id$="listbox"] {
+				background-color: var(--gray-second);
+				border-radius: 0;
+			}
+	}
+
+	&__Grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 20px 10px;
+		margin-bottom: 50px;
+	}
+
+
+	&__Actions {
+		display: flex;
+		gap: 20px;
+		justify-content: flex-end;
+	}
+}

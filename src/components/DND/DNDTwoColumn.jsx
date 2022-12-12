@@ -11,8 +11,9 @@ const DNDTwoColumn = () => {
 	const {sendRequest} = useHttp()
 	const [simpsons, setSimpsons] = useState([]);
 	const [dropSimpsons, setDropSimpsons] = useState([]);
-	const handleOnDragEnd = (result) => {
-		
+
+	const url = `${process.env.REACT_APP_FIREBASE_DOMAIN}simpsons.json`;
+	const handleOnDragEnd = (result) => {	
 		if (!result.destination) return;
 		const items = Array.from(simpsons);
 		const newItems = Array.from(dropSimpsons)
@@ -41,7 +42,7 @@ const DNDTwoColumn = () => {
 		items.forEach((element, i) => element.index = i);
 		newItems.forEach((element, i) => element.index = i);
 
-		sendRequest({method: 'PUT', body: {items, newItems}})
+		sendRequest({url, method: 'PUT', body: {items, newItems}})
 		
 		setSimpsons(items);
 		setDropSimpsons(newItems)
@@ -52,8 +53,8 @@ const DNDTwoColumn = () => {
 			setSimpsons([...data.items])
 			setDropSimpsons([...data.newItems])
 		}
-		sendRequest({convertData})
-	}, [sendRequest]);
+		sendRequest({url, convertData})
+	}, [sendRequest, url]);
 
 
 	return (

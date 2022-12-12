@@ -1,8 +1,9 @@
 import React from 'react'
+import TasksForm from '../../components/Tasks/TasksForm';
 
 const CreateTaskPage = () => {
   return (
-    <div>CreateTaskPage</div>
+    <div><TasksForm /></div>
   )
 }
 
