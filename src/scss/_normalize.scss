@@ -11,6 +11,7 @@
 html {
 	line-height: 1.15; /* 1 */
 	-webkit-text-size-adjust: 100%; /* 2 */
+   overflow-x: hidden;
 }
 
 /* Sections
@@ -39,7 +40,10 @@ main {
 
 h1 {
 	font-size: 2em;
-	margin: 0.67em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   margin: 0;
 }
 
 /* Grouping content
@@ -358,14 +362,11 @@ body {
 		'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+   // overflow: hidden;
 }
 
 * {
 	box-sizing: border-box;
-}
-
-html {
-	overflow-x: hidden;
 }
 
 

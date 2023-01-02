@@ -50,12 +50,13 @@ const DNDTwoColumn = () => {
 
 	useEffect(() => {
 		const convertData = (data) => {
-			setSimpsons([...data.items])
-			setDropSimpsons([...data.newItems])
+			const firstCol = data.items ? data.items : []
+			const secondCol = data.newItems ? data.newItems : []
+			setSimpsons([...firstCol])
+			setDropSimpsons([...secondCol])
 		}
 		sendRequest({url, convertData})
 	}, [sendRequest, url]);
-
 
 	return (
 		<div className={`container ${styles.DNDTwoColumn}`}>

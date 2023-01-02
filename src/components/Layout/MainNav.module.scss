@@ -3,18 +3,22 @@
 
 .MainNav {
 
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	width: 100vw;
+	top: 0;
+	height: var(--nav-height);
+	z-index: 5;
+	background-color: var(--primary);
+
 	:global {
 		a.active {
 			background-color: colors.$primary-lighten;
 		}
 	}
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	position: sticky;
-	height: 10vh;
-	z-index: 5;
-	background-color: var(--primary);
+
 
 	a {
 		color: white;
@@ -40,7 +44,7 @@
 		}
 		@include mixins.mq('to', 992) {
 			position: absolute;
-			top: 10vh;
+			top: var(--nav-height);
 			right: 0;
 			height: auto;
 			margin: 0;

@@ -1,9 +1,9 @@
 export const statusOptions = [
-    {value: 'New', label: 'New'},
-    {value: 'In Progress', label: 'In Progress'},
-    {value: 'Resolved', label: 'Resolved'},
-    {value: 'Testing', label: 'Testing'},
-    {value: 'Deployed', label: 'Deployed'},
+    {value: 'new', label: 'New'},
+    {value: 'inProgress', label: 'In Progress'},
+    {value: 'resolved', label: 'Resolved'},
+    {value: 'testing', label: 'Testing'},
+    {value: 'deployed', label: 'Deployed'},
 ]
 export const assigneeOptions = [
     {value: 'Vlado Cavric', label: 'Vlado Cavric'},

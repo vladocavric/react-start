@@ -21,9 +21,8 @@ import styles from './TasksForm.module.scss';
 import useHttp from '../../hooks/http';
 
 const TasksForm = () => {
-	const {isLoading, error: responseError, sendRequest} = useHttp()
+	const {isLoading, sendRequest} = useHttp()
 	const navigate = useNavigate()
-	console.log(responseError)
 	const animatedComponents = makeAnimated();
 	const [title, setTitle] = useState({
 		value: '',
