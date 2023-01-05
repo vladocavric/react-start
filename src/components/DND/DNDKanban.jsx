@@ -1,12 +1,14 @@
-import React, { useEffect, useState,  useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Link } from 'react-router-dom';
 
 import { statusOptions } from '../Tasks/options';
 import DNDKanbanCard from './DNDKanbanCard';
+import Modal from '../UI/Modal/Modal';
 import useHttp from '../../hooks/http';
 
 import styles from './DNDKanban.module.scss';
+import LoadingSpinier from '../../pages/UI/LoadingSpiner/LoadingSpinier';
 
 let initObj = {};
 for (const key of statusOptions) {
@@ -14,9 +16,9 @@ for (const key of statusOptions) {
 }
 
 const DNDKanban = () => {
-	const { error, sendRequest } = useHttp();
+	const { error, sendRequest, isLoading } = useHttp();
 	const [cards, setCards] = useState(initObj);
-	// console.log(cards);
+	const [selectCardForDel, setSelectCardForDel] = useState();
 
 	const handleOnDragEnd = (result) => {
 		if (!result.destination) return;
@@ -52,8 +54,42 @@ const DNDKanban = () => {
 					daredCard.status = result.source.droppableId;
 				}
 			};
-			sendRequest({ url, method: 'PATCH', body, convertData });
+			sendRequest({
+				url,
+				method: 'PATCH',
+				body,
+				convertData,
+				loader: false,
+			});
 		}
+	};
+
+	const convertData = useCallback((data) => {
+		const loadedTasks = [];
+		for (const taskKey in data) {
+			loadedTasks.push({ id: taskKey, ...data[taskKey] });
+		}
+
+		let newObj = {};
+		for (const key of statusOptions) {
+			newObj[key.value] = [];
+		}
+		for (const board in newObj) {
+			const boardTasks = loadedTasks.filter(
+				(task) => task.status === board
+			);
+			newObj[board].push(...boardTasks);
+		}
+
+		setCards(() => newObj);
+	}, []);
+
+	const handleSelectForDel = (dataCard) => {
+		setSelectCardForDel(dataCard);
+	};
+
+	const removeSelectionForDel = () => {
+		setSelectCardForDel(null);
 	};
 
 	const handleRemoveTask = (id) => {
@@ -66,35 +102,28 @@ const DNDKanban = () => {
 		setCards(newCards);
 	};
 
-		const convertData = useCallback((data) => {
-			const loadedTasks = [];
-			for (const taskKey in data) {
-				loadedTasks.push({ id: taskKey, ...data[taskKey] });
-			}
+	const handleDelete = () => {
+		const url = `${process.env.REACT_APP_FIREBASE_DOMAIN}tasks/${selectCardForDel.id}.json`;
+		const convertData = () => {
+			handleRemoveTask(selectCardForDel.id);
+		};
 
-			let newObj = {}
-			for (const key of statusOptions) {
-				newObj[key.value] = [];
-			}
-			for (const board in newObj) {
-				const boardTasks = loadedTasks.filter(
-					(task) => task.status === board
-				);
-				newObj[board].push(...boardTasks);
-			}
-
-			setCards(() => (newObj))
-		}, [])
-		
+		sendRequest({ url, method: 'DELETE', convertData, loader: false });
+		setSelectCardForDel(null);
+	};
 
 	useEffect(() => {
-		const url = `${process.env.REACT_APP_FIREBASE_DOMAIN}tasks.json`;	
+		const url = `${process.env.REACT_APP_FIREBASE_DOMAIN}tasks.json`;
 		sendRequest({ url, convertData });
 
 		return () => {
 			setCards({});
 		};
 	}, [sendRequest, convertData]);
+
+	if (isLoading) {
+		return <LoadingSpinier />;
+	}
 
 	return (
 		<div className={styles.DNDKanban}>
@@ -127,8 +156,8 @@ const DNDKanban = () => {
 													key={card.id}
 													{...card}
 													index={index}
-													onTaskRemove={
-														handleRemoveTask
+													selectCardForDel={
+														handleSelectForDel
 													}
 												/>
 											)
@@ -141,6 +170,31 @@ const DNDKanban = () => {
 					))}
 				</DragDropContext>
 			</div>
+			{selectCardForDel && (
+				<Modal onClose={removeSelectionForDel}>
+					<h2 className={styles.ModalTitle}>
+						You are about to delete task {selectCardForDel.title}
+					</h2>
+					<div className={styles.Actions}>
+						<button
+							onClick={removeSelectionForDel}
+							className='btn btn-primary'>
+							Canceli <i></i>
+							<i></i>
+						</button>
+						<button
+							onClick={handleDelete}
+							className='btn btn-primary'
+							style={{
+								'--primary-a': '256, 0, 0',
+								'--primary': 'red',
+							}}>
+							Delete<i></i>
+							<i></i>
+						</button>
+					</div>
+				</Modal>
+			)}
 		</div>
 	);
 };

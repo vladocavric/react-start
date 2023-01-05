@@ -4,8 +4,10 @@ const useHttp = () => {
 	const [error, setError] = useState(null);
 
 	const sendRequest = useCallback(
-		async ({ url, method, body, convertData } = {}) => {
-			setIsLoading(true);
+		async ({ url, method, body, convertData, loader = true} = {}) => {
+			if(loader) {
+				setIsLoading(true);
+			}
 			setError(null);
 			try {
 				const response = await fetch(url, {

@@ -11,6 +11,7 @@ function ErrorPage() {
 			<main id='error-content'>
 				<h1>An error occurred!</h1>
 				<p>{error.statusText}</p>
+				<p>{error.message}</p>
 			</main>
 		</>
 	);

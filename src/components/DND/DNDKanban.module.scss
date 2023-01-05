@@ -41,3 +41,14 @@
 div.ActiveColumn {
     background-color: var(--primary-op50);
 }
+
+.Actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.ModalTitle {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--primary);
+}

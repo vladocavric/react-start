@@ -1,5 +1,6 @@
 :root {
-	--primary: #287928;
+	--primary-a: 40, 121, 40;
+	--primary: rgba(var(--primary-a), 1);
 	--primary-op80: #287928cc;
 	--primary-op50: #28792880;
 	--primary-op20: #28792833;

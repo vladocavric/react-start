@@ -1,7 +1,6 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useNavigate } from 'react-router-dom';
-import useHttp from '../../hooks/http';
 
 import styles from './DNDKanbanCard.module.scss';
 
@@ -12,20 +11,17 @@ const DNDKanbanCard = ({
 	targetVersion,
 	title,
 	index,
-	onTaskRemove,
+	selectCardForDel,
 }) => {
-	const { sendRequest } = useHttp();
 	const navigate = useNavigate();
 	const handleEdit = () => {
 		navigate(`/tasks/${id}/edit`);
 	};
 
-	const handleDelete = () => {
-		const url = `${process.env.REACT_APP_FIREBASE_DOMAIN}tasks/${id}.json`;
+	const handleSelectForDel = () => {
+		selectCardForDel({id, title})
+	}
 
-		sendRequest({ url, method: 'DELETE' });
-		onTaskRemove(id);
-	};
 	return (
 		<Draggable key={id} draggableId={id} index={index}>
 			{(provided, snapshot) => (
@@ -53,7 +49,7 @@ const DNDKanbanCard = ({
 							</svg>
 						</button>
 						<button
-							onClick={handleDelete}
+							onClick={handleSelectForDel}
 							className={styles.DeleteBtn}>
 							<span></span>
 							<span></span>
