@@ -27,10 +27,17 @@
 
         >div {
             // width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             min-height: 500px;
             padding: 15px;
             border-radius: 4px;
             background-color: var(--primary-op20);
         }
     }
+}
+
+div.ActiveColumn {
+    background-color: var(--primary-op50);
 }

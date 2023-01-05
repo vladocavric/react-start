@@ -9,6 +9,7 @@ import DNDTwoColumnPage from './pages/DND/DNDTwoColumnPage';
 import DNDKanbanPage from './pages/DND/DNDKanbanPage';
 
 import CreateTaskPage from './pages/Tasks/CreateTaskPage';
+import EditTaskPage from './pages/Tasks/EditTaskPage';
 
 import PageNotFound from './pages/PageNotFound';
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
           {
             path: 'kanban',
             element: <DNDKanbanPage />,
-            // loader: blogPostLoader,
+            // loader: <div>loading...</div>,
           },
         ],
       },
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <CreateTaskPage />
+          },
+          {
+            path: ':id/edit',
+            element: <EditTaskPage />
           },
         ]
       },

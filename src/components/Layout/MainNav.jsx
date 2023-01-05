@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 import styles from './MainNav.module.scss';
 
 const MainNavigation = () => {
-	const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
-	console.log(isTouch);
+	// const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
+	// console.log(isTouch);
 	const [isOpen, setIsOpen] = useState(false);
 	const toggleMenuHandler = () => {
 		setIsOpen((prevState) => !prevState);

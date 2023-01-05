@@ -3,7 +3,7 @@ import TasksForm from '../../components/Tasks/TasksForm';
 
 const CreateTaskPage = () => {
   return (
-    <div><TasksForm /></div>
+    <TasksForm />
   )
 }
 

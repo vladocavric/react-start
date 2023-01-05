@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
-
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import React, { useState } from 'react';
+import Select from 'react-select';
 
 import {
 	statusOptions,
@@ -20,37 +18,37 @@ import Input from '../UI/Input';
 import styles from './TasksForm.module.scss';
 import useHttp from '../../hooks/http';
 
-const TasksForm = () => {
-	const {isLoading, sendRequest} = useHttp()
-	const navigate = useNavigate()
+const TasksForm = (props) => {
+	const { isLoading, sendRequest } = useHttp();
+	const navigate = useNavigate();
 	const animatedComponents = makeAnimated();
 	const [title, setTitle] = useState({
-		value: '',
+		value: props.title ? props.title : '',
 		error: '',
 		touched: false,
 	});
 	const [description, setDescription] = useState({
-		value: '',
+		value: props.description ? props.description : '',
 		error: '',
 		touched: false,
 	});
 	const [status, setStatus] = useState({
-		value: '',
+		value: props.status ? props.status : '',
 		error: '',
 		touched: false,
 	});
 	const [assignee, setAssignee] = useState({
-		value: '',
+		value: props.assignee ? props.assignee : '',
 		error: '',
 		touched: false,
 	});
 	const [environment, setEnvironment] = useState({
-		value: '',
+		value: props.environment ? props.environment : '',
 		error: '',
 		touched: false,
 	});
 	const [target, setTarget] = useState({
-		value: '',
+		value: props.targetVersion ? props.targetVersion : '',
 		error: '',
 		touched: false,
 	});
@@ -62,13 +60,17 @@ const TasksForm = () => {
 		!!assignee.error ||
 		!!environment.error ||
 		!!target.error;
-	const allTouched =
+	let allTouched =
 		title.touched &&
 		description.touched &&
 		status.touched &&
 		assignee.touched &&
 		environment.touched &&
 		target.touched;
+
+	if (props.id) {
+		allTouched = true;
+	}
 	const allValues =
 		!!title.value &&
 		!!description.value &&
@@ -76,9 +78,6 @@ const TasksForm = () => {
 		!!assignee.value &&
 		!!environment.value &&
 		!!target.value;
-
-		
-
 
 	const selectStyles = {
 		control: (styles, { isFocused }) => ({
@@ -106,19 +105,24 @@ const TasksForm = () => {
 	};
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
-		const url = `${process.env.REACT_APP_FIREBASE_DOMAIN}tasks.json`;
-		const body =  {
+		const url = `${process.env.REACT_APP_FIREBASE_DOMAIN}tasks${
+			props.id ? '/' + props.id : ''
+		}.json`;
+		const body = {
 			title: title.value,
 			description: description.value,
 			status: status.value,
 			assignee: assignee.value,
 			environment: environment.value,
-			targetVersion: target.value
-		}
-		const convertData = data => {
-			navigate('/dnd/kanban')
-		}
-		sendRequest({url, method: 'POST', body, convertData})
+			targetVersion: target.value,
+		};
+		const convertData = (data) => {
+			navigate('/dnd/kanban');
+		};
+
+		const method = props.id ? 'PATCH' : 'POST';
+
+		sendRequest({ url, method, body, convertData });
 	};
 
 	const handleChangeTitle = (title) => {
@@ -144,9 +148,11 @@ const TasksForm = () => {
 	const handleTargetChange = (e) => {
 		setTarget({ value: e.value, error: '', touched: true });
 	};
+
 	return (
 		<div className={styles.TasksForm}>
-			<h1>Create a new Task</h1>
+			{!props.id && <h1>Create a new Task</h1>}
+			{props.id && <h1>Edit Task {props.title}</h1>}
 			<form onSubmit={handleFormSubmit}>
 				<Input
 					label={'Title'}
@@ -161,7 +167,7 @@ const TasksForm = () => {
 
 				<CKEditor
 					editor={ClassicEditor}
-					data=''
+					data={description.value}
 					onChange={handleDescriptionChange}
 				/>
 
@@ -172,6 +178,14 @@ const TasksForm = () => {
 						options={statusOptions}
 						styles={selectStyles}
 						onChange={handleStatusChange}
+						defaultValue={
+							props.status &&
+							statusOptions[
+								statusOptions.findIndex(
+									(el) => el.value === props.status
+								)
+							]
+						}
 					/>
 
 					<Select
@@ -180,6 +194,14 @@ const TasksForm = () => {
 						options={assigneeOptions}
 						styles={selectStyles}
 						onChange={handleAssigneeChange}
+						defaultValue={
+							props.assignee &&
+							assigneeOptions[
+								assigneeOptions.findIndex(
+									(el) => el.value === props.assignee
+								)
+							]
+						}
 					/>
 
 					<Select
@@ -188,6 +210,14 @@ const TasksForm = () => {
 						options={environmentOptions}
 						styles={selectStyles}
 						onChange={handleEnvChange}
+						defaultValue={
+							props.environment &&
+							environmentOptions[
+								environmentOptions.findIndex(
+									(el) => el.value === props.environment
+								)
+							]
+						}
 					/>
 
 					<Select
@@ -196,6 +226,14 @@ const TasksForm = () => {
 						options={targetVersionOptions}
 						styles={selectStyles}
 						onChange={handleTargetChange}
+						defaultValue={
+							props.targetVersion &&
+							targetVersionOptions[
+								targetVersionOptions.findIndex(
+									(el) => el.value === props.targetVersion
+								)
+							]
+						}
 					/>
 				</div>
 
@@ -206,8 +244,10 @@ const TasksForm = () => {
 					<button
 						type='submit'
 						className='btn btn-primary'
-						disabled={!allTouched || anyErrors || !allValues || isLoading}>
-						{isLoading ? 'Submiting...' : 'Submit'}
+						disabled={
+							!allTouched || anyErrors || !allValues || isLoading
+						}>
+						{isLoading ? 'Submitting...' : 'Submit'}
 						<i></i>
 					</button>
 				</div>

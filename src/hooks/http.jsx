@@ -21,8 +21,9 @@ const useHttp = () => {
 				}
 
 				const data = await response.json();
-
-				convertData(data);
+				if (convertData) {
+					convertData(data);
+				}
 			} catch (err) {
 				setError(err.message || 'Something went wrong!');
 			}

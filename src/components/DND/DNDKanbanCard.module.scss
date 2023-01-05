@@ -2,10 +2,65 @@
     border-radius: 5px;
     background-color: rgb(214, 214, 214, 0.7);
     padding: 10px;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        .Actions {
+            right: 0;
+        }
+    }
 
     h4 {
         color: var(--primary);
         text-align: center;
         margin-bottom: 10px;
+    }
+
+    &.Active {
+        background-color: var(--gray-second);
+    }
+}
+
+.Actions {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -100%;
+    transition: right 0.3s;
+
+    button {
+        flex-grow: 1;
+        border: none;
+    }
+}
+
+
+.DeleteBtn {
+    background-color: red;
+    
+    span {
+        display: inline-block;
+        background-color: white;
+        width: 25px;
+        height: 3px;
+
+        &:first-child{
+            transform: matrix(1, 1, -1, 1, 11, -6);
+        }
+
+        &:last-child{
+            transform: matrix(1, -1, 1, 1, -12, -6);
+        }
+    }
+}
+
+.EditBtn {
+    background-color: var(--primary);
+
+    svg {
+        fill: #fff;
     }
 }
