@@ -1,25 +1,23 @@
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import makeAnimated from 'react-select/animated';
 import React, { useState } from 'react';
-import Select from 'react-select';
-
+import { Link, useNavigate } from 'react-router-dom';
 import {
-	statusOptions,
 	assigneeOptions,
 	environmentOptions,
+	statusOptions,
 	targetVersionOptions,
 } from './options';
 
-import Input from '../UI/Input';
-
-import styles from './TasksForm.module.scss';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 import useHttp from '../../hooks/http';
+import Input from '../UI/Input';
+import Modal from '../UI/Modal/Modal';
+import styles from './TasksForm.module.scss';
 
 const TasksForm = (props) => {
-	const { isLoading, sendRequest } = useHttp();
+	const { isLoading, sendRequest, error, setError } = useHttp();
 	const navigate = useNavigate();
 	const animatedComponents = makeAnimated();
 	const [title, setTitle] = useState({
@@ -149,6 +147,10 @@ const TasksForm = (props) => {
 		setTarget({ value: e.value, error: '', touched: true });
 	};
 
+	const removeError = () => {
+		setError(null);
+	};
+
 	return (
 		<div className={styles.TasksForm}>
 			{!props.id && <h1>Create a new Task</h1>}
@@ -252,6 +254,18 @@ const TasksForm = (props) => {
 					</button>
 				</div>
 			</form>
+			{error && (
+				<Modal onClose={removeError}>
+					<h3 className='center red mb-30'>{error}</h3>
+					<div className='center'>
+						<button
+							className='btn btn-primary'
+							onClick={removeError}>
+							OK
+						</button>
+					</div>
+				</Modal>
+			)}
 		</div>
 	);
 };

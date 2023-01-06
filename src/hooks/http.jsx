@@ -34,7 +34,7 @@ const useHttp = () => {
 		[]
 	);
 
-	return { isLoading, error, sendRequest };
+	return { isLoading, error, sendRequest, setError };
 };
 
 export default useHttp;

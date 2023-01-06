@@ -16,7 +16,7 @@ for (const key of statusOptions) {
 }
 
 const DNDKanban = () => {
-	const { error, sendRequest, isLoading } = useHttp();
+	const { error, setError, sendRequest, isLoading } = useHttp();
 	const [cards, setCards] = useState(initObj);
 	const [selectCardForDel, setSelectCardForDel] = useState();
 
@@ -44,16 +44,8 @@ const DNDKanban = () => {
 				result.source.index,
 				1
 			);
-			cards[result.destination.droppableId].splice(
-				result.destination.index,
-				0,
-				movedItem
-			);
-			const convertData = () => {
-				if (error) {
-					daredCard.status = result.source.droppableId;
-				}
-			};
+
+			const convertData = () => {};
 			sendRequest({
 				url,
 				method: 'PATCH',
@@ -61,6 +53,11 @@ const DNDKanban = () => {
 				convertData,
 				loader: false,
 			});
+			cards[result.destination.droppableId].splice(
+				result.destination.index,
+				0,
+				movedItem
+			);
 		}
 	};
 
@@ -110,6 +107,10 @@ const DNDKanban = () => {
 
 		sendRequest({ url, method: 'DELETE', convertData, loader: false });
 		setSelectCardForDel(null);
+	};
+
+	const removeError = () => {
+		setError(null);
 	};
 
 	useEffect(() => {
@@ -191,6 +192,18 @@ const DNDKanban = () => {
 							}}>
 							Delete<i></i>
 							<i></i>
+						</button>
+					</div>
+				</Modal>
+			)}
+			{error && (
+				<Modal onClose={removeError}>
+					<h3 className='center red mb-30'>{error}</h3>
+					<div className='center'>
+						<button
+							className='btn btn-primary'
+							onClick={removeError}>
+							OK
 						</button>
 					</div>
 				</Modal>
