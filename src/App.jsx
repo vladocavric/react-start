@@ -1,4 +1,5 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import React, {Suspense} from 'react';
+import  { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import RootLayout from './pages/RootLayout';
 import ErrorPage from './pages/ErrorPage';
@@ -16,10 +17,15 @@ import PageNotFound from './pages/PageNotFound';
 import UIPage from './pages/UI/UIPage';
 import ButtonsPage from './pages/UI/ButtonsPage'
 
+
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
+
+
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootLayout />,
+    element: <Suspense fallback={<span></span>}><RootLayout /></Suspense>,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
@@ -77,6 +83,15 @@ const router = createBrowserRouter([
             path: 'buttons',
             element: <ButtonsPage />
           }
+        ]
+      },
+      {
+        path: 'chat',
+        children: [
+          {
+            index: true,
+            element: <ChatPage />,
+          },
         ]
       },
       {

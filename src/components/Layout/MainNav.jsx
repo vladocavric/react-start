@@ -38,7 +38,7 @@ const MainNavigation = () => {
 					</div>
 				</li>
 				<li style={{ '--time': '0.8s' }}>
-					<NavLink to=''>projects</NavLink>
+					<NavLink to='chat'>chat</NavLink>
 				</li>
 			</ul>
 
