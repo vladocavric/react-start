@@ -16,6 +16,16 @@
 .users {
   background-color: var(--primary-op20);
   flex-grow: 1;
+
+  >div {
+    padding: 5px 10px;
+    color: var(--primary);
+
+    &:nth-child(even) {
+      background-color: var(--primary-op50);
+      color: #fff;
+    }
+  }
 }
 
 .mein {
@@ -26,6 +36,59 @@
 
 .messages {
   flex-grow: 1;
+  padding-top: 5px;
+  overflow-y: scroll;
+
+  >div {
+    padding: 3px 15px;
+    display: flex;
+  }
+}
+
+.notMyMsg, .myMsg {
+  >div {
+    background-color: gray;
+    padding: 12px;
+  }
+}
+
+.myMsg {
+  color: #fff;
+  justify-content: right;
+  >div {
+    background-color: (var(--primary));
+    border-radius: 5px 0 5px 5px;
+  }
+}
+
+.notMyMsg {
+  >div {
+    background-color: var(--primary-op20);
+    border-radius: 0 5px 5px 5px;
+  }
+}
+
+.adminMsg {
+  color: gray;
+  justify-content: center;
+  font-style: italic;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.msgMeta {
+  font-style: italic;
+  font-size: 11px;
+  color: rgb(180, 180, 180);
+  display: flex;
+  gap: 2px;
+
+  span {
+    font-style: normal;
+  }
+
 }
 
 .titleLine {
@@ -43,8 +106,15 @@
   button {
     background-color: white;
     border: none;
-    color: var(--primary);
+    color: var(--primary-op80);
     font-size: 30px;
+    &:hover {
+      color: var(--primary)
+    }
+
+    &:disabled {
+      color: var(--primary-op20);
+    }
   }
 }
 
@@ -61,3 +131,4 @@
   padding: 5px;
   background-color: white;
 }
+

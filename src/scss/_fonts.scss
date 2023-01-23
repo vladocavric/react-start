@@ -25,6 +25,21 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
+  .icon-warning:before {
+    content: "\e902";
+  }
+  .icon-x:before {
+    content: "\e903";
+  }
+  .icon-success:before {
+    content: "\e904";
+  }
+  .icon-info:before {
+    content: "\e905";
+  }
+  .icon-error:before {
+    content: "\e906";
+  }
   .icon-send:before {
     content: "\e900";
   }

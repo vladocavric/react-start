@@ -6,36 +6,35 @@ import styles from './ChatLogin.module.scss';
 
 
 
-const ChatLogin = ({socket, handleStartChat}) => {
+const ChatLogin = ({handleStartChat}) => {
 
-	const [name, setName] = useState('');
+	const [username, setUsername] = useState('');
 	const [room, setRoom] = useState('');
 	const handleSubmit = (e) => {
 		e.preventDefault();
-        if(name !== '' && room !== '') {
-            handleStartChat(name, room)
-        }
+        handleStartChat(username, room)
 	};
 
-	const handleChangeName = (nameTyped) => {
-		setName(nameTyped);
+	const handleChangeUsername = (nameTyped) => {
+		setUsername(nameTyped);
 	};
 	const handleChangeRoom = (roomTyped) => {
 		setRoom(roomTyped.trim());
 	};
+
 	return (
         <>
 		<div className={styles.formWrap}>
 			<form onSubmit={handleSubmit} className={styles.form}>
                 <h2>Chat Login</h2>
 				<Input
-					label={'Name'}
+					label={'Username'}
 					input={{
 						type: 'text',
-						id: 'name',
-						value: name,
+						id: 'username',
+						value: username,
 					}}
-					valueChange={handleChangeName}
+					valueChange={handleChangeUsername}
 				/>
 				<Input
 					label={'Room'}

@@ -1,0 +1,35 @@
+.toast {
+	display: flex;
+	width: calc(100% - 30px);
+	align-items: center;
+	margin: 0 15px;
+	border-radius: 5px;
+	position: fixed;
+	top: calc(var(--nav-height) + 15px);
+
+	p {
+		margin: 0;
+	}
+
+	svg {
+		fill: red;
+		width: 50px;
+	}
+}
+
+.icon,
+.close {
+	display: flex;
+	align-items: center;
+	padding: 10px 15px;
+	font-size: 30px;
+}
+
+.close {
+	margin-left: auto;
+	transition: rotate 0.3s;
+
+	&:hover {
+		rotate: 90deg;
+	}
+}

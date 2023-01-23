@@ -1,10 +1,11 @@
 .formWrap {
 	display: flex;
 	width: 100%;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin: auto;
-	height: calc(100vh - var(--nav-height) - 80px);
+	height: calc(100vh - var(--nav-height) - 160px);
 }
 .form {
 	display: flex;
