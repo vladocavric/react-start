@@ -8,6 +8,7 @@ const Chat = ({ socket, username, room, roomUsers }) => {
 	const currentMsg = useRef();
 	const [messages, setMessages] = useState([]);
 	const [error, setError] = useState('');
+	const [disabledGeo, setDisabledGeo] = useState(false);
 
 	const handleSendMessage = () => {
 		const message = currentMsg.current.innerText;
@@ -42,8 +43,50 @@ const Chat = ({ socket, username, room, roomUsers }) => {
 		setError('');
 	};
 
+	const handleSendLocation = () => {
+		navigator.geolocation.getCurrentPosition((position) => {
+			let coordinate = {
+				lat: position.coords.latitude,
+				lon: position.coords.longitude,
+			};
+			socket.emit('sendLocation', coordinate, () => {
+				const message = {
+					username,
+					createdAt: new Date().toISOString(),
+					text: `https://www.google.com/maps?q=${coordinate.lat},${coordinate.lon}`,
+					location: true,
+				};
+				setDisabledGeo(true)
+				setMessages((privMsgs) => {
+					const updatedMsgs = [...privMsgs];
+					updatedMsgs.push(message);
+					return updatedMsgs;
+				});
+			});
+		});
+	};
+
 	useEffect(() => {
+		if (!navigator.geolocation) {
+			setError('Geolocation is not support by your browser, to have best experience please change to some modern browser')
+			setDisabledGeo(true)
+		}
+
 		socket.on('message', (message) => {
+			setMessages((privMsgs) => {
+				const updatedMsgs = [...privMsgs];
+				updatedMsgs.push(message);
+				return updatedMsgs;
+			});
+		});
+
+		socket.on('locationMessage', ({ username, url, createdAt }) => {
+			const message = {
+				username,
+				createdAt,
+				text: url,
+				location: true,
+			};
 			setMessages((privMsgs) => {
 				const updatedMsgs = [...privMsgs];
 				updatedMsgs.push(message);
@@ -52,12 +95,17 @@ const Chat = ({ socket, username, room, roomUsers }) => {
 		});
 		return () => {
 			socket.off('message');
+			socket.off('locationMessage');
 		};
 	}, [socket]);
 
 	return (
 		<>
-			{error && <ToastMessage onClose={removeErr} status='error'>error</ToastMessage>}
+			{error && (
+				<ToastMessage onClose={removeErr} status='error'>
+					error
+				</ToastMessage>
+			)}
 			<div className={styles.chat}>
 				<div className={styles.sidebar}>
 					<h3 className={styles.titleLine}>{username}</h3>
@@ -94,11 +142,23 @@ const Chat = ({ socket, username, room, roomUsers }) => {
 										: ''
 								}`}>
 								<div>
-									<div
-										dangerouslySetInnerHTML={{
-											__html: msg.text,
-										}}
-									/>
+									{!msg.location && (
+										<div
+											dangerouslySetInnerHTML={{
+												__html: msg.text,
+											}}
+										/>
+									)}
+									{msg.location && (
+										<div>
+											<a
+												target='_blank'
+												rel='noreferrer'
+												href={msg.text}>
+												My current location
+											</a>
+										</div>
+									)}
 									<div className={styles.msgMeta}>
 										{msg.username !== 'Admin' &&
 											msg.username !== username && (
@@ -136,7 +196,7 @@ const Chat = ({ socket, username, room, roomUsers }) => {
 									<i className='icon-send'></i>
 								</button>
 							</div>
-							<button>
+							<button onClick={handleSendLocation} disabled={disabledGeo}>
 								<i className='icon-geolocation'></i>
 							</button>
 						</div>

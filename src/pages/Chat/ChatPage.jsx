@@ -40,7 +40,6 @@ const ChatPage = () => {
 
 	useEffect(() => {
 		socket.on('roomData', ({room, users}) => {
-			console.log(room, users)
 			setRoomUsers(users)
 		})
 		return () => {
