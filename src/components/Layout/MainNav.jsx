@@ -20,10 +20,20 @@ const MainNavigation = () => {
 			</div>
 			<ul className={`${isOpen ? styles.MainNav__IsOpen : ''}`}>
 				<li style={{ '--time': '0.2s' }}>
-					<NavLink to='/' end>home</NavLink>
+					<NavLink to='/' end>
+						home
+					</NavLink>
 				</li>
-				<li style={{ '--time': '0.4s' }}>
-					<NavLink to='ui' end>UI</NavLink>
+				<li
+					className={styles.MainNav__Dropdown}
+					style={{ '--time': '0.4s' }}>
+					<NavLink to='ui' onMouseOver={mouseOverHandle} end>
+						UI
+					</NavLink>
+					<div className={styles.MainNav__Dropdown__Content}>
+						<NavLink to='ui/buttons'>buttons</NavLink>
+						<NavLink to='ui/card-3d-hover'>card 3d hover</NavLink>
+					</div>
 				</li>
 				<li
 					className={styles.MainNav__Dropdown}

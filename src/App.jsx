@@ -16,6 +16,7 @@ import PageNotFound from './pages/PageNotFound';
 
 import UIPage from './pages/UI/UIPage';
 import ButtonsPage from './pages/UI/ButtonsPage'
+import CardPage from './pages/UI/CardPage';
 
 
 const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
@@ -82,7 +83,11 @@ const router = createBrowserRouter([
           {
             path: 'buttons',
             element: <ButtonsPage />
-          }
+          },
+          {
+            path: 'card-3d-hover',
+            element: <CardPage />
+          },
         ]
       },
       {

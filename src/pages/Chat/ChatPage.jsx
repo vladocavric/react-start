@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 
 import Chat from '../../components/Chat/Chat';
 import ChatLogin from '../../components/Chat/ChatLogin';
-import ToastMessage from '../UI/ToastMessage/ToastMessage';
+import ToastMessage from '../../components/UI/ToastMessage/ToastMessage';
 
 const socket = io.connect('http://localhost:3000');
 

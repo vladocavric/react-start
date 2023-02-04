@@ -8,7 +8,7 @@ import Modal from '../UI/Modal/Modal';
 import useHttp from '../../hooks/http';
 
 import styles from './DNDKanban.module.scss';
-import LoadingSpinier from '../../pages/UI/LoadingSpiner/LoadingSpinier';
+import LoadingSpinier from '../UI/LoadingSpinner/LoadingSpinner';
 
 let initObj = {};
 for (const key of statusOptions) {

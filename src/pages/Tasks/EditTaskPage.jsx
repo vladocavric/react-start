@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import useHttp from '../../hooks/http';
 import TasksForm from '../../components/Tasks/TasksForm';
 import { useNavigate } from 'react-router-dom';
-import LoadingSpinier from '../UI/LoadingSpiner/LoadingSpinier';
+import LoadingSpinier from '../../components/UI/LoadingSpinner/LoadingSpinner';
 
 const EditTaskPage = () => {
   const navigate = useNavigate()

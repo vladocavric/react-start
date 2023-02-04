@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import ToastMessage from '../../pages/UI/ToastMessage/ToastMessage';
+import ToastMessage from '../UI/ToastMessage/ToastMessage';
 // import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 import styles from './Chat.module.scss';

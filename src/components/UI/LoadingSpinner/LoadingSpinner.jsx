@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './LoadingSpinier.module.scss';
+import styles from './LoadingSpinner.module.scss';
 
-const LoadingSpinier = () => {
+const LoadingSpinner = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.ldsRing}>
@@ -15,4 +15,4 @@ const LoadingSpinier = () => {
 	);
 };
 
-export default LoadingSpinier;
+export default LoadingSpinner;

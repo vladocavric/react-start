@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.container {
+	min-height: calc(100vh - var(--nav-height) - 70px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
+    font-family: "Poppins";
+    color: white;
+    // background-color: #1a1818;
+
+    .bg {
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        right: -20px;
+        bottom: -20px;
+        z-index: -1;
+        filter: brightness(100%) blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .bg img {
+        height: 60%;
+        width: 60%;
+        object-fit: cover;
+      }
+
+	.cardWrapper {
+		perspective: 1000px;
+		width: 100%;
+		max-width: 466.67px;
+		height: 300px;
+	}
+	.card {
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        position: relative;
+        overflow: hidden;
+        background-color: rgba(80, 80, 80, 0.25);
+	}
+	.cardWrapper * {
+		pointer-events: none;
+	}
+	.highlight {
+		position: absolute;
+		height: 400px;
+		width: 400px;
+		border-radius: 50%;
+		background-color: rgba(255, 255, 255, 0.13);
+		filter: brightness(70%) blur(20px);
+		color: #333;
+		font-weight: bold;
+		left: -20%;
+		top: -13%;
+	}
+	.cardNumber {
+		font-size: 2rem;
+		margin-bottom: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+	}
+	.cardNumber__stars {
+		height: 2.4rem;
+	}
+	.cardName {
+		height: 100%;
+		font-size: 2rem;
+		margin-bottom: 10px;
+		align-self: flex-start;
+	}
+}
+
+
